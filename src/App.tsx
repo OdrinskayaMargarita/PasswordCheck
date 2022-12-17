@@ -62,6 +62,12 @@ function App() {
     setPasswordValue(target.value.trim())
   }
 
+  const handleClearFields = () => {
+    setPasswordParams(defaultPasswordReq)
+    setErrorsParams(defaultErrorsParams)
+    setPasswordValue('')
+  }
+
   const handleCheckValidity = () => {
     if(!isDisableCheck) return;
 
@@ -78,9 +84,7 @@ function App() {
         valid: reqLetters.length >= passwordParams.minCount && reqLetters.length <= passwordParams.maxCount
       }])
 
-    setPasswordParams(defaultPasswordReq)
-    setErrorsParams(defaultErrorsParams)
-    setPasswordValue('')
+    handleClearFields()
   }
 
   return (
@@ -95,11 +99,17 @@ function App() {
         <TextFieldComponent title='Enter Password' value={passwordValue} onChange={handlePassword}/>
       </Grid>
       <Grid container justifyContent='center' style={{marginTop: 40}}>
-        <Grid item>
+        <Grid item style={{marginRight: 40}}>
           <Button variant="contained"
                   onClick={handleCheckValidity}
                   disabled={!isDisableCheck}>
             Check
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained"
+                  onClick={handleClearFields}>
+            Clear
           </Button>
         </Grid>
       </Grid>
